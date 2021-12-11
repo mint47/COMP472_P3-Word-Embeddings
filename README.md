@@ -1,6 +1,6 @@
 # COMP472_P3
 
-2 Your Tasks
+Your Tasks
 Write a program to use different word embeddings to answer the Synonym Test automatically and compare the
 performance of different models. You must use:
 1. Python 3.8 and the Gensim library. Gensim https://radimrehurek.com/gensim/ is a free open-source Python
@@ -8,8 +8,8 @@ library for representing documents as vectors. The library allows you to load pr
 train your own Word2Vec embeddings from your own corpus, computes the similarity of word embeddings, . . .
 2. GitHub (make sure your project is private while developing).
 Your work will be divided into 4 tasks.
-1
-2.1 Task 0: Contribution to a Collective Human Gold-Standard
+
+Task 0: Contribution to a Collective Human Gold-Standard
 This task is to be done individually. In order to better judge the performance of your code (tasks 1 to 3 below),
 each of you will do the Synonym Test manually.
 Before November 27, 2021 (11:59pm), go on the Moodle Quiz called Crowdsourced Gold-Standard for MP3
@@ -19,6 +19,8 @@ number of questions that you answer.
 After November 27, 2021, I will compile all the results and publish them on Moodle so that all teams can use
 them as a human gold-standard to evaluate the results of your code (tasks 1 to 3 below).
 2.2 Task 1: Evaluation of the word2vec-google-news-300 Pre-trained Model
+
+Task 1:
 In this first experiment, you will use the pre-trained Word2Vec model called word2vec-google-news-300 to
 compute the closest synonym for each word in the dataset. First, use gensim.downloader.load to load the
 word2vec-google-news-300 pretrained embedding model. Then use the similarity method from Gensim to
@@ -42,20 +44,15 @@ provisions,stipulations,stipulations,correct
 ...
 2. In a file called analysis.csv, in a single line:
 (a) the model name (clearly indicating the source of the corpus and the vector size), a comma
-(b) the size of the vocabulary (the number of unique words in the corpus1
-)
+(b) the size of the vocabulary (the number of unique words in the corpus1)
 (c) the number of correct labels (call this C), a comma
-(d) the number of questions that your model answered without guessing (i.e. 80− guess) (call this V ), a
-comma
-(e) the accuracy of the model (i.e. C
-V
-)
+(d) the number of questions that your model answered without guessing (i.e. 80− guess) (call this V ), a comma
+(e) the accuracy of the model (i.e. CV)
 For example, the file analysis.csv could contain:
 word2vec-google-news-300,3000000,44,78,0.5641025641025641
-1
-also known as the word-types, as opposed to work-tokens
-2
-2.3 Task 2: Comparison with Other Pre-trained Models
+
+
+Task 2: Comparison with Other Pre-trained Models
 Now that you have obtained results with the word2vec-google-news-300 pre-trained model, you will experiment with 4 other English word2vec pretrained models and compare the results. You can use any pre-trained
 embeddings that you want, but you must have:
 1. 2 new models from different corpora (eg. Twitter, English Wikipedia Dump . . . ) but same embedding size
