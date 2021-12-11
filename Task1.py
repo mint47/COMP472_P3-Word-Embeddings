@@ -30,6 +30,7 @@ with open('word2vec-google-news-300-details.csv', 'w') as f_object:
     field_names = ['question', 'correct_answer', 'system_guess', 'labels']
     # create the csv writer
     writer = csv.writer(f_object, field_names)
+    # write header to the file
     dw = csv.DictWriter(f_object, field_names)
     dw.writeheader()
 
@@ -59,5 +60,44 @@ with open('word2vec-google-news-300-details.csv', 'w') as f_object:
             else:
                 new_element = [ques, ans, guess, 'wrong']
                 writer.writerow(new_element)
+
+# part 2
+
+# model name
+model_name = "word2vec-google-news-300"
+# vocabulary size
+vocabulary_size = len(model)
+# correct labels
+correct_labels = 0
+# number of questions answered without guessing
+without_guessing = 0
+# accuracy
+accuracy = 0.0
+
+# loading word2vec-google-news-300-details.csv into pandas
+google_news_300_df = pd.read_csv("word2vec-google-news-300-details.csv")
+
+google_news_300_labels = google_news_300_df['labels']
+# traverse through the google_news_300_df
+
+for x in range(0,len(google_news_300_df)):
+    if google_news_300_labels[x] == 'correct' or google_news_300_labels[x] == 'wrong':
+        without_guessing = without_guessing + 1
+        if google_news_300_labels[x] == 'correct':
+            correct_labels = correct_labels + 1
+
+accuracy = correct_labels / without_guessing
+with open('analysis.csv', 'w') as f_object:
+    # list of column name
+    field_names = ['model name', 'vocabulary size', 'correct labels', 'model answered without guessing', 'accuracy']
+    analysis_value = [model_name, vocabulary_size, correct_labels, without_guessing, accuracy]
+    # write header to the file
+    dw = csv.DictWriter(f_object, field_names)
+    dw.writeheader()
+    # writing the analysis
+    writer = csv.writer(f_object,field_names)
+    writer.writerow(analysis_value)
+
+
 
 
