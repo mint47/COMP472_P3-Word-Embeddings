@@ -25,9 +25,14 @@ fourthValue = synonym_df["3"]
 
 # part 1
 # print word2vec-google-news-300-details.csv file
-with open('word2vec-google-news-300-details.csv', 'w') as f:
+with open('word2vec-google-news-300-details.csv', 'w') as f_object:
+    # list of column names
+    field_names = ['question', 'correct_answer', 'system_guess', 'labels']
     # create the csv writer
-    writer = csv.writer(f)
+    writer = csv.writer(f_object, field_names)
+    dw = csv.DictWriter(f_object, field_names)
+    dw.writeheader()
+
     for x in range(0, len(synonym_df)):
         # convert tuple ques to string
         ques = questions[x]
@@ -43,12 +48,16 @@ with open('word2vec-google-news-300-details.csv', 'w') as f:
         four = fourthValue[x]
         # in case the system's guess word is label as guess
         if (ques not in model.key_to_index) or (one not in model.key_to_index and two not in model.key_to_index and three not in model.key_to_index and four not in model.key_to_index):
-            writer.writerow([ques + ", " + ans+", " + ", " + 'guess'])
+            new_element = [ques, ans, '', 'guess']
+            writer.writerow(new_element)
         # in case the system's guess word is label as correct
         elif (ques in model.key_to_index) and (one in model.key_to_index or two in model.key_to_index or three in model.key_to_index or four in model.key_to_index):
-            if ans == model.most_similar(ques)[0][0]:
-                writer.writerow([ques + ", " + ans + ", " + model.most_similar(ques)[0][0] + ", " + 'correct'])
+            guess = model.most_similar(ques)[0][0]
+            if ans == guess:
+                new_element = [ques, ans, guess, 'correct']
+                writer.writerow(new_element)
             else:
-                writer.writerow([ques + ", " + ans + ", " + model.most_similar(ques)[0][0] + ", " + 'wrong'])
+                new_element = [ques, ans, guess, 'wrong']
+                writer.writerow(new_element)
 
 
