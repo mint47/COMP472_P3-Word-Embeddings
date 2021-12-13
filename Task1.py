@@ -6,12 +6,12 @@ import os
 from pandas.core.frame import DataFrame
 
 # Question 1
-
 # load the word2vec-google-news-300 model  into the program
 print("> loading model...")
+model_name = "word2vec-google-news-300"
 def load_model(model_name):
     return api.load(model_name) # load data set as iterable
-google300 = load_model("word2vec-google-news-300")
+google300 = load_model(model_name)
 print(" >> model loaded")
 
 print("> loading questions...")
@@ -32,8 +32,8 @@ print(" >> questions loaded")
 # part 1
 # print word2vec-google-news-300-details.csv file
 print("> going through questionaire...")
-def findmostsimilar(questions, answers, options, model):
-    with open(file='word2vec-google-news-300-details.csv', mode='w', newline='\n') as file:
+def findmostsimilar(questions, answers, options, model, output):
+    with open(file=output, mode='w', newline='\n') as file:
         # list of column names
         field_names = ['question', 'correct_answer', 'system_guess', 'labels']
         # create the csv writer
@@ -59,7 +59,7 @@ def findmostsimilar(questions, answers, options, model):
             # in case the system's guess word is label as correct
             else:
                 # compute cosine similarity of options
-                sim = [model.similarity(ques, o) for o in opt]
+                sim = [model.similarity(ques, o) for o in opt if o in model.key_to_index]
                 # choose most similar option
                 guess = opt[sim.index(max(sim))]
                 print('Guess:'+guess)
@@ -68,8 +68,8 @@ def findmostsimilar(questions, answers, options, model):
                     label = 'correct'
                 else:
                     label = 'wrong'
-            writer.writerow([ques, ans, guess, label])       
-findmostsimilar(questions, answers, options, google300)
+            writer.writerow([ques, ans, guess, label])
+findmostsimilar(questions, answers, options, google300, 'word2vec-google-news-300-details.csv')
 print(" >> all questions answered")
 
 # part 2
@@ -78,9 +78,9 @@ def getAnalytics(model, model_name):
     # model name
     model_name = model_name
     # embeding size
-    emb_size = google300.vector_size
+    emb_size = model.vector_size
     # vocabulary size
-    vocabulary_size = len(google300)
+    vocabulary_size = len(model)
     
     # loading word2vec-google-news-300-details.csv into pandas
     output_file = (model_name+'-details.csv')
@@ -99,7 +99,7 @@ def getAnalytics(model, model_name):
     accuracy = float(correct_labels) / without_guessing
 
     return model_name, emb_size, vocabulary_size, correct_labels, without_guessing, accuracy
-model_name, emb_size, vocabulary_size, correct_labels, without_guessing, accuracy = getAnalytics(google300, 'word2vec-google-news-300')
+model_name, emb_size, vocabulary_size, correct_labels, without_guessing, accuracy = getAnalytics(google300, model_name)
 
 print(" >> saving analytics to file")
 def saveAnalysis(model_name, vocabulary_size, correct_labels, without_guessing, accuracy):
