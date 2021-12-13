@@ -116,8 +116,8 @@ model_names = ['fasttext-wiki-news-subwords-300', 'word2vec-ruscorpora-300', 'gl
 model1 = findmostsimilar2(questions, answers, options, model_names[0])
 saveAnalytics(model1, model_names[0])
 
-model2 = findmostsimilar2(questions, answers, options, model_names[2])
-saveAnalytics(model2, model_names[2])
+model2 = findmostsimilar2(questions, answers, options, model_names[1])
+saveAnalytics(model2, model_names[1])
 
 model3 = findmostsimilar2(questions, answers, options, model_names[2])
 saveAnalytics(model3, model_names[2])
