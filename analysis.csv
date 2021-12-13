@@ -1,7 +1,0 @@
-model name,vocabulary size,correct labels,model answered without guessing,accuracy
-word2vec-google-news-300,3000000,70,79,0.8860759493670886
-word2vec-google-news-300,3000000,70,79,0.8860759493670886
-word2vec-google-news-300,3000000,70,79,0.8860759493670886
-word2vec-google-news-300,3000000,70,79,0.8860759493670886
-glove-wiki-gigaword-50,400000,57,80,0.7125
-word2vec-google-news-300,3000000,70,79,0.8860759493670886
