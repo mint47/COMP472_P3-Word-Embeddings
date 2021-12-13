@@ -97,7 +97,10 @@ def saveAnalytics(model, model_name):
         elif x == 'correct':
             correct_labels = correct_labels + 1
     # accuracy
-    accuracy = float(correct_labels) / without_guessing
+    if without_guessing != 0:
+        accuracy = float(correct_labels) / without_guessing
+    else:
+        accuracy = 0
 
     print("> saving analytics to file...")
     if (not os.path.isfile('analysis.csv')):
@@ -111,7 +114,7 @@ def saveAnalytics(model, model_name):
         writer.writerow(analysis_value)
     print("> done!")
 
-model_names = ['fasttext-wiki-news-subwords-300', 'word2vec-ruscorpora-300', 'glove-twitter-100', 'glove-twitter-200']
+model_names = ['fasttext-wiki-news-subwords-300', 'glove-wiki-gigaword-300', 'glove-twitter-100', 'glove-twitter-200']
 
 model1 = findmostsimilar2(questions, answers, options, model_names[0])
 saveAnalytics(model1, model_names[0])
