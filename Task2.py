@@ -5,9 +5,10 @@ import csv
 import os
 
 # load questions
-def load_questions():
+question_file = "synonyms.csv"
+def load_questions(question_file):
     # load the data into synonym_df
-    synonym_df = pd.read_csv("synonyms.csv")
+    synonym_df = pd.read_csv(question_file)
     # create a question array
     questions = synonym_df["question"]
     # create answer array
@@ -16,7 +17,7 @@ def load_questions():
     options = pd.DataFrame(synonym_df, columns=['0', '1', '2', '3'])
     options = options.transpose()
     return questions, answers, options
-questions, answers, options = load_questions()
+questions, answers, options = load_questions(question_file)
 
 # using: print(list(api.info()['models'].keys()))
 # available models found are:
